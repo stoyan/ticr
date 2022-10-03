@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <!-- Keep this. Making it visible is the signal to Puppeteer that we're done with the test -->
+    <div id="done" style="display: none">done</div>
+    
+    <script>
+// we do the actual testing once the browser has had a chance to settle down
+window.onload = () => {
+
+  // start
+  performance.mark('testmarker start');
+  
+  //
+  // Actual test starts, go nuts here. For example...
+  //
+  
+  document.getElementById('done').innerHTML = 'Well done!';
+  // uncomment the next line to test the cost of rendering
+  // const oh = document.body.offsetHeight;
+  
+  //
+  // ... done going nuts
+  //
+  
+  // end
+  performance.mark('testmarker end');
+
+  // optional, only if you want to inspect the trace in chrome://tracing/
+  // performance.measure('testmarker', 'testmarker start', 'testmarker end');
+  
+  // optional, add any supporting info you want to see as part of the test result
+  // performance.mark('testmarker meta' + JSON.stringify({what: 123}));
+  
+  // tell puppeteer we're done
+  document.getElementById('done').style.display = 'block';
+};
+    </script>
+  </body>
+</html>
