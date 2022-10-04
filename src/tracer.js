@@ -1,5 +1,8 @@
 const fs = require('fs');
 
+const {median} = require('./util.js');
+
+
 function getResults(opts) {
   let traceData = fs.readFileSync(opts.trace).toString();
   if (!traceData.includes('ticount')) {
@@ -35,10 +38,26 @@ function getResults(opts) {
     }    
   });
   ////// todo
-  //tic = Math.floor(Math.random()*1000000);
+  // tic = Math.floor(Math.random()*1000000);
   return {tic, layouts, meta};
-
 }
 
-exports.getResults = getResults;
+function report(results, opts) {
+  if (results.length === 1) {
+    return results[0];
+  }
+
+  if (opts.reportRuns === 'all') {
+    return results;
+  }
+
+  const sorted = results.map(r => r.tic).sort();
+  const winner = opts.reportRuns === 'lowest' ? sorted[0] : median(sorted);
+  return results.find(r => r.tic === winner);
+}
+
+module.exports = {
+  getResults,
+  report,
+};
 

@@ -1,6 +1,6 @@
 function median(a) {
   if (a % 2 === 0) {
-    a.pop(); // ignore the last one
+    a.pop(); // ignore the last one, if even elements
   }
   return a[(a.length - 1) / 2];
 }
