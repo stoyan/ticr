@@ -2,42 +2,7 @@
 
 const {program} = require('commander');
 
-const {red, green, median} = require('./src/util.js');
-
-const sandboxURL = 'file://' + process.mainModule.path + '/examples/sandbox.html';
-
-async function run() {
-  const res = [];
-  const opts = program.opts();
-  for (let i = 0; i < opts.runs; i++) {
-    const r = await runOnce(sandboxURL);
-    if (r.error) {
-      red(r.error);
-      process.exit(); 
-    }
-    res.push(r);
-  }
-  if (res.length === 1) {
-    console.log(JSON.stringify(res[0], null, 2));
-    process.exit();
-  }
-  
-  if (opts.reportRuns === 'all') {
-    console.log(JSON.stringify(res, null, 2));
-    process.exit();    
-  }
-  
-  const sorted = res.map(r => r.tic).sort();
-  
-  const winner = opts.reportRuns === 'lowest' ? sorted[i] : median(sorted);  
-  
-  console.log(res); // todo: delete
-
-}
-
-async function runAB() {
-  
-}
+const {sandboxURL} = require('./src/util.js');
 
 program
   .name('ticr')
@@ -49,12 +14,17 @@ program
   .option('--chrome <char>', 'path to the Chrome executable', '.' + process.mainModule.path + '/chrome')
   .option('--runs <int>', 'How many times to run the test. Each run closes and opens the browser again', 3)
   .option('--report-runs <char>', 'Options: lowest, median, all.', 'lowest')
-  .action(run);
-  
+  .action(() => {
+    const run = require('./src/command.main.js');
+    run(program.opts());
+  });
+
 program
   .command('ab <test.html> <a.js> <b.js>')
   .description('Run an A/B test by providing URLs to test page, an a.js and a b.js')
-  .action(runAB);
+  .action(() => {
+    // todo
+  });
 
 program
   .command('sandbox')
@@ -69,7 +39,7 @@ program
   .description('Tests if `ticount` is supported by the browser')  
   .action(() => {
     const echoSupport = require('./src/command.support.js');
-    echoSupport();
+    echoSupport(program.opts());
   });
   
 program

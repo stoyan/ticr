@@ -22,9 +22,9 @@ async function done({browser, page}) {
 }
 
 async function runOnce(url, opts) {
-  const init = await setup();
-  await page.goto();
-  await page.waitForSelector('#done', {visible: true});
+  const init = await setup(opts);
+  await init.page.goto(url);
+  await init.page.waitForSelector('#done', {visible: true});
   await done(init);
   return getResults(opts);
 }
@@ -34,5 +34,3 @@ module.exports = {
   done,
   runOnce,
 };
-
-

@@ -1,11 +1,12 @@
 const fs = require('fs');
+const {setup, done} = require('./runner.js');
+const {red, green, sandboxURL} = require('./util.js');
 
-
-async function echoSupport() {
-  const {browser, page} = await setup();
+async function echoSupport(opts) {
+  const {browser, page} = await setup(opts);
   await page.goto(sandboxURL);
-  await done(browser, page);
-  let traceData = fs.readFileSync(program.opts().trace).toString();
+  await done({browser, page});
+  let traceData = fs.readFileSync(opts.trace).toString();
   if (traceData.includes('"ticount":')) {
     green('`ticount` is supported');
   } else {

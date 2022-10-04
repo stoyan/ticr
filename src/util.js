@@ -17,4 +17,5 @@ module.exports = {
   median, 
   red, 
   green,
+  sandboxURL: 'file://' + process.mainModule.path + '/examples/sandbox.html',
 };
