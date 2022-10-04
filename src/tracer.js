@@ -1,8 +1,5 @@
 const fs = require('fs');
 
-const {median} = require('./util.js');
-
-
 function getResults(opts) {
   let traceData = fs.readFileSync(opts.trace).toString();
   if (!traceData.includes('ticount')) {
@@ -40,6 +37,13 @@ function getResults(opts) {
   ////// todo
   // tic = Math.floor(Math.random()*1000000);
   return {tic, layouts, meta};
+}
+
+function median(a) {
+  if (a % 2 === 0) {
+    a.pop(); // ignore the last one, if even elements
+  }
+  return a[(a.length - 1) / 2];
 }
 
 function report(results, opts) {
