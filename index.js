@@ -14,16 +14,18 @@ program
   .option('--chrome <char>', 'path to the Chrome executable', '.' + process.mainModule.path + '/chrome')
   .option('--runs <int>', 'How many times to run the test. Each run closes and opens the browser again', 3)
   .option('--report-runs <char>', 'Options: lowest, median, all.', 'lowest')
+  .option('-o, --options', 'Dump the program options', false)
   .action(() => {
     const run = require('./src/command.main.js');
     run(program.opts());
   });
 
 program
-  .command('ab <test.html> <a.js> <b.js>')
-  .description('Run an A/B test by providing URLs to test page, an a.js and a b.js')
-  .action(() => {
-    // todo
+  .command('ab <a.js> <b.js>')
+  .description('Run an A/B test by providing URLs to test page (--url option), an a.js and a b.js JavaScript files')
+  .action((a, b) => {
+    const ab = require('./src/command.ab.js');
+    ab(a, b, program.opts());
   });
 
 program
@@ -51,3 +53,9 @@ program
   });
 
 program.parse();
+
+if (program.opts().options) {
+  console.log("Running with these options:");
+  console.log(program.opts());
+}
+

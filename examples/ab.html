@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <!-- Keep this. Making it visible is the signal to Puppeteer that we're done with the test -->
+    <div id="done" style="display: none">done</div>
+    
+    <script>
+      
+      function done(msg) {
+        document.getElementById('done').innerText = msg;
+        document.getElementById('done').style.display = 'block';
+      }
+      
+      // we do the actual testing once the browser has had a chance to settle down
+      window.onload = () => {
+
+        const jsurl = location.hash.substring(1);
+        if (!jsurl) {
+          done('No JS provided');
+        }
+        
+        const a = document.createElement('a');
+        a.href = jsurl;
+        // the test file needs a function with the same name, 
+        // e.g. testme.js needs to provide testme()
+        const func = a.pathname.split('/').pop().split('.')[0];
+        
+        const script = document.createElement('script');
+        script.src = jsurl;
+        script.onload = () => setTimeout(test, 1000); // 1s to "settle"
+        script.onerror = () => done('Error loading ' + jsurl);
+        document.head.appendChild(script);
+
+        function test() {
+          try {
+            // start
+            performance.mark('testmarker start');
+
+            func();
+
+            // end
+            performance.mark('testmarker end');
+          
+            done('Success');
+          } catch ({message}) {
+            done(message);
+          }
+        }
+      };
+    </script>
+  </body>
+</html>
