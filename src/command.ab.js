@@ -45,12 +45,12 @@ async function ab(ajs, bjs, opts) {
     const diff = reportA.tic - reportB.tic;
     if (Math.abs(diff) < reportA.tic && Math.abs(diff) < reportB.tic) {
       const percent = Math.abs((100 * diff / reportA.tic).toFixed(2));
-      green('A is ' + percent + '% ' + (diff > 0 ? 'slower' : 'faster') + ' than B');
+      green('A uses ' + percent + '% ' + (diff > 0 ? 'more' : 'fewer') + ' CPU instructions than B');
     } else {
       if (diff > 0) {
-        green('A is ' + (reportA.tic / reportB.tic).toFixed(2) + ' times slower than B');
+        green('A uses ' + (reportA.tic / reportB.tic).toFixed(2) + ' times more CPU instructions than B');
       } else {
-        green('B is ' + (reportB.tic / reportA.tic).toFixed(2) + ' times slower than A');
+        green('B uses ' + (reportB.tic / reportA.tic).toFixed(2) + ' times more CPU instructions than A');
       }
     }
     
