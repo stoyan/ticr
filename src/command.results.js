@@ -1,4 +1,4 @@
-const {getResults} = require('./tracer.js');
+const {getResults} = require('./results.js');
 
 function echoResults(opts) {
   const res = getResults(opts);
@@ -6,9 +6,7 @@ function echoResults(opts) {
     const {red} = require('./util.js');
     red(res.error);
   } else {
-    console.log(
-      JSON.stringify(res, null, 2)
-    );    
+    console.log(JSON.stringify(res, null, 2));
   }
 }
 

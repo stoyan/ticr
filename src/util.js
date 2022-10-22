@@ -7,7 +7,7 @@ function green(msg) {
 }
 
 module.exports = {
-  red, 
+  red,
   green,
   sandboxURL: 'file://' + process.mainModule.path + '/examples/sandbox.html',
 };

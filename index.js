@@ -11,7 +11,7 @@ program
   .option('-m, --marker <char>', 'marker to look for in the trace file', 'testmarker')
   .option('-t, --trace <char>', 'name/path to write the trace file', 'trace.json')
   .option('-u, --url <char>', 'URL of a test page', sandboxURL)
-  .option('--chrome <char>', 'path to the Chrome executable', '.' + process.mainModule.path + '/chrome')
+  .option('--chrome <char>', 'path to the Chrome executable')
   .option('--runs <int>', 'How many times to run the test. Each run closes and opens the browser again', 3)
   .option('--report-runs <char>', 'Options: lowest, median, all.', 'lowest')
   .option('-o, --options', 'Dump the program options', false)
@@ -30,7 +30,7 @@ program
 
 program
   .command('sandbox')
-  .description('Print out the contents of a sandbox.html to toy with. Example use: `ticr sandbox > sandbox.html`')  
+  .description('Print out the contents of a sandbox.html to toy with. Example use: `ticr sandbox > sandbox.html`')
   .action(() => {
     const echoSandbox = require('./src/command.sandbox.js');
     echoSandbox();
@@ -43,7 +43,7 @@ program
     const echoSupport = require('./src/command.support.js');
     echoSupport(program.opts());
   });
-  
+
 program
   .command('results')
   .description('Parses a trace.json to show results')  

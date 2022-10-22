@@ -10,7 +10,9 @@ async function echoSupport(opts) {
   if (traceData.includes('"ticount":')) {
     green('`ticount` is supported');
   } else {
-    red('`ticount` is NOT supported, see https://github.com/stoyan/ticr for ideas');
+    red(
+      '`ticount` is NOT supported, see https://github.com/stoyan/ticr for ideas',
+    );
   }
 }
 

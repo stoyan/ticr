@@ -1,12 +1,12 @@
 const puppeteer = require('puppeteer');
-const {getResults} = require('./tracer.js');
+const {getResults} = require('./results.js');
 
 async function setup(opts) {
   const browser = await puppeteer.launch({
-    //executablePath: opts.chrome,
+    executablePath: opts.chrome ?? null,
     args: [
-    	'--no-sandbox', 
-    	'--enable-thread-instruction-count',
+      '--no-sandbox',
+      '--enable-thread-instruction-count',
     ],
   });
   const page = await browser.newPage();
