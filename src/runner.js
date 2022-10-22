@@ -25,6 +25,9 @@ async function runOnce(url, opts) {
   const init = await setup(opts);
   await init.page.goto(url);
   await init.page.waitForSelector('#done', {visible: true});
+  // todo: make this an option
+  // const innerHTML = await init.page.$eval('#done', element => element.innerHTML);
+  // console.log(innerHTML);
   await done(init);
   return getResults(opts);
 }

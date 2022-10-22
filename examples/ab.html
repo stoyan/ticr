@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html>
-  <head>
-  </head>
+  <head> </head>
   <body>
     <!-- Keep this. Making it visible is the signal to Puppeteer that we're done with the test -->
-    <div id="done" style="display: none">done</div>
+    <div id="done" style="display: none;">done</div>
 
     <script>
-
-      function done(msg) {
-        document.getElementById('done').innerText = msg;
-        document.getElementById('done').style.display = 'block';
+      function msgDone(msg, error = false) {
+        const el = document.getElementById('done');
+        el.innerText = msg;
+        el.style.display = 'block';
+        // todo use error
       }
 
       // we do the actual testing once the browser has had a chance to settle down
       window.onload = () => {
-
         const jsurl = location.hash.substring(1);
         if (!jsurl) {
-          done('No JS provided');
+          msgDone('No JS provided', true);
         }
 
         const a = document.createElement('a');
@@ -27,14 +26,18 @@
         const script = document.createElement('script');
         script.src = jsurl;
         script.onload = () => setTimeout(test, 1000); // 1s to "settle"
-        script.onerror = () => done('Error loading ' + jsurl);
+        script.onerror = () => msgDone('Error loading ' + jsurl, true);
         document.head.appendChild(script);
 
         function test() {
           try {
-            // the test file needs a function with the same name, 
-            // e.g. testme.js needs to provide testme()
-            const func = a.pathname.split('/').pop().split('.')[0];
+            // the test file needs a function with the same name,
+            // e.g. test-me.js needs to provide testme()
+            let func = a.pathname
+              .split('/')
+              .pop()
+              .split('.')[0]
+              .replace(/\W/g, '');
             const F = Function('return ' + func + '.apply()');
 
             // start
@@ -45,9 +48,9 @@
             // end
             performance.mark('testmarker end');
 
-            done('Success');
+            msgDone('Success');
           } catch ({message}) {
-            done(message);
+            msgDone(message, true);
           }
         }
       };
