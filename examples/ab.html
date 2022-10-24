@@ -6,12 +6,22 @@
     <div id="done" style="display: none;">done</div>
 
     <script>
-      function msgDone(msg, error = false) {
+      function msgDone(msg = null, error = false) {
         const el = document.getElementById('done');
-        el.innerText = msg;
+        if (msg) {
+          el.innerText = msg;
+        }
         el.style.display = 'block';
         // todo use error
       }
+
+      function addElements(num, type = 'div') {
+        for (let i = 0; i < num; i++) {
+          const d = document.createElement(type);
+          d.innerHTML = Math.random();
+          document.body.appendChild(d);
+        } 
+      }  
 
       // we do the actual testing once the browser has had a chance to settle down
       window.onload = () => {
@@ -48,7 +58,7 @@
             // end
             performance.mark('testmarker end');
 
-            msgDone('Success');
+            msgDone();
           } catch ({message}) {
             msgDone(message, true);
           }
