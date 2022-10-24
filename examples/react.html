@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Add React in One Minute</title>
+  </head>
+  <body>
+    <!-- We will put our React component inside this div. -->
+    <div id="app"></div>
+
+    <!-- Load React. -->
+    <script
+      src="https://unpkg.com/react@18/umd/react.production.min.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+      crossorigin
+    ></script>
+
+    <!-- Keep this. Making it visible is the signal to Puppeteer that we're done with the test -->
+    <div id="done" style="display: none;">done</div>
+
+    <script>
+      // we do the actual testing once the browser has had a chance to settle down
+      window.onload = () => {
+        const span = React.createElement('span', null, 'I am such a span');
+        const p = React.createElement('p', null, span);
+        const app = document.getElementById('app');
+
+        // start
+        performance.mark('testmarker start');
+
+        ReactDOM.render(span, app);
+        // ReactDOM.render(p, app);
+
+        // end
+        performance.mark('testmarker end');
+
+        // tell puppeteer we're done
+        document.getElementById('done').style.display = 'block';
+      };
+    </script>
+  </body>
+</html>
