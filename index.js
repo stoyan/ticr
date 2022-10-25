@@ -7,7 +7,7 @@ const {sandboxURL} = require('./src/util.js');
 program
   .name('ticr')
   .description('CLI for thread instruction counting')
-  .version('1.0.1')
+  .version('1.0.8')
   .option('-m, --marker <char>', 'marker to look for in the trace file', 'testmarker')
   .option('-t, --trace <char>', 'name/path to write the trace file', 'trace.json')
   .option('-u, --url <char>', 'URL of a test page', sandboxURL)
