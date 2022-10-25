@@ -1,13 +1,12 @@
-function innerHTMLa() {
-  for (var count = 0; count < 10; count++) {
-    document.getElementById('done').innerHTML += 'a';
-  }
-}
-
+let d = document.createElement('div');
+d.id = 'output';
+document.body.appendChild(d);
+let oh = 0;
 function innerHTMLb() {
   var content = '';
-  for (var count = 0; count < 10; count++) {
-    content += 'a';
+  for (var count = 0; count < 100; count++) {
+    content += Math.random();
+    // oh = document.getElementById('output').offsetHeight;
   }
-  document.getElementById('here').innerHTML += content;
+  document.getElementById('output').innerHTML += content;
 }

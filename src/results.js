@@ -15,7 +15,7 @@ function getResults(opts) {
   let lookForLayouts = false;
   let layouts = 0;
   let lookForMeta = false;
-  let meta = {};
+  let meta = null;
   data.traceEvents.forEach((l) => {
     if (l.name === startMarker) {
       tic = l.ticount;
@@ -36,17 +36,25 @@ function getResults(opts) {
   });
   ////// todo
   // tic = Math.floor(Math.random()*1000000);
-  return {tic, layouts, meta};
+  const res = {tic};
+  if (layouts) {
+    res.layouts = layouts;
+  }
+  if (meta) {
+    res.meta = meta;
+  }
+  return res;
 }
 
 function median(a) {
-  if (a % 2 === 0) {
+  if (a.length % 2 === 0) {
     a.pop(); // ignore the last one, if even elements
   }
   return a[(a.length - 1) / 2];
 }
 
 function report(results, opts) {
+  //console.log(results.map((r) => r.tic));
   if (results.length === 1) {
     return results[0];
   }

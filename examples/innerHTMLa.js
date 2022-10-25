@@ -1,13 +1,10 @@
+let d = document.createElement('div');
+d.id = 'output';
+document.body.appendChild(d);
+let oh = 0;
 function innerHTMLa() {
-  for (var count = 0; count < 10; count++) {
-    document.getElementById('done').innerHTML += 'a';
+  for (var count = 0; count < 100; count++) {
+    document.getElementById('output').innerHTML += Math.random();
+    // oh = document.getElementById('output').offsetHeight;
   }
-}
-
-function innerHTMLb() {
-  var content = '';
-  for (var count = 0; count < 10; count++) {
-    content += 'a';
-  }
-  document.getElementById('here').innerHTML += content;
 }
