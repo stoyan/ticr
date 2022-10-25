@@ -36,3 +36,33 @@ $ ticr --chrome ~/chromium/982481/chrome-linux/chrome support
 `ticount` is supported
 ```
 
+## Features at a glance
+
+```
+$ ticr -h
+Usage: ticr [options] [command]
+
+CLI for thread instruction counting
+
+Options:
+  -V, --version         output the version number
+  -m, --marker <char>   marker to look for in the trace file (default: "testmarker")
+  -t, --trace <char>    name/path to write the trace file (default: "trace.json")
+  -u, --url <char>      URL of a test page (default:
+                        "file:///home/s/.npm/_npx/858494ef2099568b/node_modules/ticr/examples/sandbox.html")
+  --chrome <char>       path to the Chrome executable
+  --runs <int>          How many times to run the test. Each run closes and opens the browser again (default: 3)
+  --report-runs <char>  Options: lowest, median, all. (default: "lowest")
+  -o, --options         Dump the program options (default: false)
+  -h, --help            display help for command
+
+Commands:
+  ab <a.js> <b.js>      Run an A/B test by providing URLs to test page (--url option), an a.js and a b.js
+                        JavaScript files
+  sandbox               Print out the contents of a sandbox.html to toy with. Example use: `ticr sandbox >
+                        sandbox.html`
+  support               Tests if `ticount` is supported by the browser
+  results               Parses a trace.json to show results
+```
+
+The rest of this document omits the `--chrome` option but you'll most likely needed it as shown above
